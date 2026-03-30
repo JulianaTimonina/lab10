@@ -1,0 +1,14 @@
+*.exe
+*.dll
+*.so
+*.pyd
+*.pyc
+__pycache__/
+.venv/
+venv/
+target/
+Cargo.lock
+*.egg-info/
+dist/
+build/
+.pytest_cache/
