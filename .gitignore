@@ -12,3 +12,15 @@ Cargo.lock
 dist/
 build/
 .pytest_cache/
+
+
+*.exe~
+*.dylib
+*.out
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
