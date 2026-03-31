@@ -8,6 +8,7 @@
 | М1 | 1. Создать простое API на Go (Gin) с 2-3 эндпоинтами |
 | М2 | 3. Реализовать валидацию входных данных в Go |
 | М3 | 5. Передавать сложные структуры данных (JSON) между сервисами |
+| H1 | 3. Добавить аутентификацию (JWT) в Go-сервисе и проверять токены из Python |
 
 ---
 
@@ -52,7 +53,27 @@ lab9/
 │       └── main_test.go 
 │   
 ├── h1/
-│   ├── 
+│   ├── go-service/
+│   │   ├── auth/
+│   │   │   └── jwt.go
+│   │   ├── handlers/
+│   │   │   └── handlers.go
+│   │   ├── middleware/
+│   │   │   └── auth.go
+│   │   ├── main.go
+│   │   ├── main_test.go
+│   │   ├── go.mod
+│   │   └── go.sum
+│   └── python-service/
+│       ├── auth/
+│       │   ├── __init__.py
+│       │   └── jwt_validator.py
+│       ├── tests/
+│       │   ├── test_jwt_validator.py
+│       │   └── test_main.py
+│       ├── main.py
+│       ├── requirements.txt
+│       └── pyproject.toml 
 │   
 └── h2/
     ├── 
@@ -108,5 +129,34 @@ cd gin-service
 go test -v
 
 cd fastapi-service
+pytest tests/ -v
+```
+
+#### h1
+Добавить аутентификацию (JWT) в Go-сервисе и проверять токены из Python
+
+```bash
+# Запуск GO
+cd go-service
+go mod tidy
+
+go run main.go
+
+# Запуск Python
+cd python-service
+pip install -r requirements.txt
+
+uvicorn main:app --reload
+
+#Для проверки работоспособности
+curl http://localhost:8080/public
+curl http://localhost:8000/health
+
+
+#Запуск тестов
+cd go-service
+go test -v
+
+cd python-service
 pytest tests/ -v
 ```
