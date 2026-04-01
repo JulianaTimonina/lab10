@@ -20,7 +20,8 @@ app = FastAPI(
 )
 security = HTTPBearer()
 
-GO_SERVICE_URL = "http://localhost:8080"
+import os
+GO_SERVICE_URL = os.getenv("GO_SERVICE_URL", "http://localhost:8080")
 
 class LoginRequest(BaseModel):
     username: str

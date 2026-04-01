@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # Go сервис
+  go-service:
+    build: ./go-service
+    container_name: go-jwt-service
+    ports:
+      - "8080:8080"  # хост:контейнер
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # Python сервис
+  python-service:
+    build: ./python-service
+    container_name: python-jwt-client
+    ports:
+      - "8000:8000"  # хост:контейнер
+    networks:
+      - app-network
+    depends_on:
+      - go-service
+    environment:
+      - GO_SERVICE_URL=http://go-service:8080  # URL для связи между контейнерами
+    restart: unless-stopped
+
+# Создаем общую сеть для контейнеров
+networks:
+  app-network:
+    driver: bridge

@@ -8,9 +8,13 @@
 | М1 | 1. Создать простое API на Go (Gin) с 2-3 эндпоинтами |
 | М2 | 3. Реализовать валидацию входных данных в Go |
 | М3 | 5. Передавать сложные структуры данных (JSON) между сервисами |
-| H1 | 3. Добавить аутентификацию (JWT) в Go-сервисе и проверять токены из Python |
+| H1 | 3. Добавить аутентификацию (JWT) в Go-сервисе и проверять токены из Python + 5. Развернуть оба сервиса в Docker Compose с общей сетью. |
 
 ---
+```
+В h1 выполнены задания 3 и 5 из повышенной сложности,
+так как выполнение задания 5 предполагает выполнение задания 3.
+```
 
 ### Структура репозитория
 
@@ -52,31 +56,32 @@ lab9/
 │       ├── go.sum
 │       └── main_test.go 
 │   
-├── h1/
-│   ├── go-service/
-│   │   ├── auth/
-│   │   │   └── jwt.go
-│   │   ├── handlers/
-│   │   │   └── handlers.go
-│   │   ├── middleware/
-│   │   │   └── auth.go
-│   │   ├── main.go
-│   │   ├── main_test.go
-│   │   ├── go.mod
-│   │   └── go.sum
-│   └── python-service/
-│       ├── auth/
-│       │   ├── __init__.py
-│       │   └── jwt_validator.py
-│       ├── tests/
-│       │   ├── test_jwt_validator.py
-│       │   └── test_main.py
-│       ├── main.py
-│       ├── requirements.txt
-│       └── pyproject.toml 
-│   
-└── h2/
-    ├── 
+└── h1/
+    ├── docker-compose.yml	#задание 5
+    ├── go-service/
+    │   ├── auth/
+    │   │   └── jwt.go
+    │   ├── handlers/
+    │   │   └── handlers.go
+    │   ├── middleware/
+    │   │   └── auth.go
+    │   ├── main.go
+    │   ├── main_test.go
+    │   ├── Dockerfile	#задание 5
+    │   ├── go.mod
+    │   └── go.sum
+    └── python-service/
+        ├── auth/
+        │   ├── __init__.py
+        │   └── jwt_validator.py
+        ├── tests/
+        │   ├── test_jwt_validator.py
+        │   └── test_main.py
+        ├── Dockerfile	#задание 5
+        ├── main.py
+        ├── requirements.txt
+        └── pyproject.toml 
+
 ```
 
 ## Запуск тестов
@@ -90,7 +95,7 @@ go mod tidy
 go run main.go
 
 # Запуск тестов
-go test -v ./...
+go test -v
 ```
 
 #### М2
@@ -134,6 +139,8 @@ pytest tests/ -v
 
 #### h1
 Добавить аутентификацию (JWT) в Go-сервисе и проверять токены из Python
++
+Развернуть оба сервиса в Docker Compose с общей сетью. 
 
 ```bash
 # Запуск GO
@@ -159,4 +166,8 @@ go test -v
 
 cd python-service
 pytest tests/ -v
+
+#Запуск в Docker Compose
+docker-compose up -d
+docker-compose ps
 ```
